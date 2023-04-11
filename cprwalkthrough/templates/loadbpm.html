@@ -1,0 +1,15 @@
+<div id="results" class="results">
+  <table>
+    <tr>
+      <td>{{ bpm }}</td>
+    </tr>
+  </table>
+  <h4 id="tdid">{{ comp_count }}</h4>
+  <script>
+    var results = document.getElementById('tdid').innerHTML;
+    console.log(results);
+    if (results == 10) {
+        window.location="http://127.0.0.1:5000/breaths"
+    }
+  </script>
+</div>

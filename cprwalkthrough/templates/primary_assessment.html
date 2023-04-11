@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <audio id="p_audio" src="{{ url_for('static', filename='primary-audio.mp3') }}"></audio>
+        <script>
+            var audio = document.getElementById('p_audio');
+            console.log(audio);
+            audio.addEventListener('canplaythrough', function() {
+                audio.play();
+            });
+
+            window.addEventListener('beforeunload', function(event) {
+            audio.pause();
+            audio.currentTime = 0;
+            event.preventDefault();
+            });
+        </script>
+        <div class="panel panel-default">
+            <div class="panel-body" style="text-align: center">
+                <h1 id="title">CPR Walkthrough</h1>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body" style="text-align: center">
+                <h2 id="description">Unsure of what to do after witnessing a possible cardiac arrest? Follow this step-by-step guide explaining what to do.</h2>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body" style="text-align: center">
+                <h2 id="description">Check for Signs of Cardiac Arrest</h2>
+            </div>
+            <div class="panel-body" style="text-align: left; padding-top: 0px">
+                <p>1. Open kit and remove gloves, face shield and mat.</p>
+                <p>2. Determine if unresponsive by shouting, shaking, and rubbing their chest.</p>  
+                <p>3. Determine if breathing by laying on their back, placing ear next to mouth and listening.</p>
+                <p>4. Call 911 or ask someone else to.</p>
+            </div>
+        </div>
+        <a href="{{ url_for('compressions') }}">
+            <button type="button" class="btn btn-primary btn-lg btn-block">I have called 911</button>
+        </a>
+    </div>
+{% endblock %}

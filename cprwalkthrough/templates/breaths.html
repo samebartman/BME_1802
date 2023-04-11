@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <script>
+    var myVar=setInterval(function () {myTimer()}, 15000);
+
+    function myTimer() {
+        window.location="http://127.0.0.1:5000/compressions"
+    }
+    </script>
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-body" style="text-align: center">
+                <h1 id="title">CPR Walkthrough</h1>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body" style="text-align: center">
+                <h2 id="description">Give 2 Rescue Breaths</h2>
+            </div>
+            <div class="panel-body" style="text-align: left; padding-top: 0px">
+                <p>1. Tilt head back.</p>
+                <p>2. Place shield over mouth.</p>
+                <p>3. Pinch nose and blow into valve twice.</p>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body" style="text-align: center">
+                <video width="300" height="210" autoplay muted id="breaths_v" src={{name}} type="video/mp4"></video>
+                <audio id="b_audio" src="{{ url_for('static', filename='breaths-audio.mp3') }}"></audio>
+                <script>
+                    var audio = document.getElementById('b_audio');
+                    audio.addEventListener('canplaythrough', function() {
+                    audio.play();
+                    });
+                    window.addEventListener('beforeunload', function(event) {
+                    audio.pause();
+                    audio.currentTime = 0;
+                    event.preventDefault();
+                    });
+                </script>
+            </div>
+        </div>
+        <a href="{{ url_for('recovery') }}">
+            <button type="button" class="btn btn-primary btn-lg btn-block">The victim is showing signs of life</button>
+        </a>
+    </div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-body" style="text-align: center">
+                <h1 id="title">CPR Walkthrough</h1>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body" style="text-align: center">
+                <h2 id="description">Complete 10 Chest Compressions</h2>
+            </div>
+            <div class="panel-body" style="text-align: left; padding-top: 0px">
+                <p>1. Place mat on chest, aligning neck and shoulders.</p>
+                <p>2. Stack hands on symbol.</p>
+                <p>3. Push 10 times.</p>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body" style="text-align: center">
+                <video width="300" height="210" autoplay muted id="compressions_v" src={{name}} type="video/mp4"></video>
+                <audio id="c_audio" src="{{ url_for('static', filename='compressions-audio.mp3') }}"></audio>
+                <script>
+                    var audio = document.getElementById('c_audio');
+                    audio.addEventListener('canplaythrough', function() {
+                    audio.play();
+                    });
+                    window.addEventListener('beforeunload', function(event) {
+                    audio.pause();
+                    audio.currentTime = 0;
+                    event.preventDefault();
+                    });
+                </script>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body" style="text-align: center">
+                <h2 id="description">Beats Per Minute (BPM)</h2>
+                <div style="position: relative;">
+                    <h3 class="text-overlay">{% include "loadbpm.html" %}</h3>
+                    <img src="{{url_for('static', filename='photos/heart.jpg')}}">
+                </div>
+                <p>Aim for 100 BPM</p>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <a href="{{ url_for('recovery') }}">
+                <button type="button" class="btn btn-primary btn-lg btn-block">The victim is showing signs of life</button>
+            </a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-body" style="text-align: center">
+                <h1 id="title">CPR Walkthrough</h1>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body" style="text-align: center">
+                <h2 id="description">Place in Recovery Position</h2>
+            </div>
+            <div class="panel-body" style="text-align: left; padding-top: 0px">
+                <p>1. Extend the victim's left arm with their palm facing up.</p>
+                <p>2. Cross the victim's right arm over their body so that the back of their right hand rests on their left check.</p>
+                <p>3. Bend the victim's right knee to approximately 90 degrees.</p>
+                <p>4. Roll the person by grabbing their bent knee so that they are now laying on their left side.</p>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body" style="text-align: center">
+                <video width="300" height="210" autoplay muted id="recovery_v" src={{name}} type="video/mp4"></video>
+                <audio id="r_audio" src="{{ url_for('static', filename='recovery-audio.mp3') }}"></audio>
+                <script>
+                    var audio = document.getElementById('r_audio');
+                    audio.addEventListener('canplaythrough', function() {
+                    audio.play();
+                    });
+                    window.addEventListener('beforeunload', function(event) {
+                    audio.pause();
+                    audio.currentTime = 0;
+                    event.preventDefault();
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+{% endblock %}
